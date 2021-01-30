@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Validator;
 use Laravel\Fortify\Contracts\CreatesNewUsers;
 use Laravel\Jetstream\Jetstream;
 
+use App\Models\UserProfile;
+use App\Models\UserStatus;
+
+use Illuminate\Support\Str;
+
 class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules;
@@ -27,10 +32,28 @@ class CreateNewUser implements CreatesNewUsers
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
         ])->validate();
 
-        return User::create([
+        $user = User::create([
+            'public_id' => Str::uuid(),
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => Hash::make($input['password']),
         ]);
+
+        UserProfile::create([
+            'public_id' => $user->public_id,
+            'user_id' => $user->id,
+            'birthday' => $input['birthday'],
+            'gender' => $input['gender'],
+            'privacy_setting' => 'Public',
+            'is_application_user' => '1',
+            'affiliate_code' => Str::random(8)
+        ]);
+
+        UserStatus::create([
+            'user_id' => $user->id,
+            'status' => 'Offline',
+        ]);
+
+        return $user;
     }
 }

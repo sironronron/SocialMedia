@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\PageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,8 @@ Route::get('/', function () {
     ]);
 });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->name('dashboard');
+Route::get('/newsfeed', [PageController::class, 'dashboard'])->name('dashboard');
+Route::get('/messages', [PageController::class, 'messages'])->name('messages');
+Route::get('/notifications', [PageController::class, 'notifications'])->name('notifications');
+Route::get('/find-friends', [PageController::class, 'find_friends'])->name('find-friends');
+Route::get('/profile/{public_id}', [PageController::class, 'show_profile'])->name('show-profile');

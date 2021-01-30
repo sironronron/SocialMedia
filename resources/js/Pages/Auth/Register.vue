@@ -18,6 +18,21 @@
             </div>
 
             <div class="mt-4">
+                <jet-label for="birthday" value="Birthday" />
+                <jet-input id="birthday" type="date" class="mt-1 block w-full" v-model="form.birthday" required />
+            </div>
+
+            <div class="mt-4">
+                <jet-label for="gender" value="Gender" />
+                <input type="radio" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" value="Unspecified" v-model="form.gender">
+                <label class="block font-medium text-sm text-gray-700">Unspecified</label>
+                <input type="radio"t class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" value="Male" v-model="form.gender" />
+                <label class="block font-medium text-sm text-gray-700">Male</label>
+                <input type="radio" class="border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 rounded-md shadow-sm" value="Female" v-model="form.gender" />
+                <label class="block font-medium text-sm text-gray-700">Female</label>
+            </div>
+
+            <div class="mt-4">
                 <jet-label for="password" value="Password" />
                 <jet-input id="password" type="password" class="mt-1 block w-full" v-model="form.password" required autocomplete="new-password" />
             </div>
@@ -77,6 +92,8 @@
                 form: this.$inertia.form({
                     name: '',
                     email: '',
+                    birthday: '',
+                    gender: '',
                     password: '',
                     password_confirmation: '',
                     terms: false,

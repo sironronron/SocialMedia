@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 
+use App\Models\UserStatus;
+
 class FortifyServiceProvider extends ServiceProvider
 {
     /**
